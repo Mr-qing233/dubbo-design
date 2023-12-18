@@ -3,6 +3,8 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/borrow/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/borrow/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dubbo-test/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dubbo-test/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/return/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/return/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
@@ -17,6 +19,8 @@
     <file url="file://$PROJECT_DIR$/system-register/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system-search/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system-search/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/system-test/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/system-test/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

@@ -1,4 +1,5 @@
 package org.example.service;
 
-public class TestService {
+public interface TestService {
+    String testException(String state);
 }

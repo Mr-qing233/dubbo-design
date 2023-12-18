@@ -10,6 +10,7 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/borrow/pom.xml" />
+        <option value="$PROJECT_DIR$/dubbo-test/pom.xml" />
         <option value="$PROJECT_DIR$/return/pom.xml" />
       </set>
     </option>

@@ -1,0 +1,22 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: system-test
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/design?serveTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+dubbo:
+  protocol:
+    port: -1
+    name: dubbo
+  registry:
+    address: nacos://localhost:8848
