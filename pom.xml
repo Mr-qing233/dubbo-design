@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>system-common</module>
-        <module>system-search</module>
         <module>system-login</module>
         <module>system-register</module>
         <module>system-manage</module>

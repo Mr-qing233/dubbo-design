@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/borrow/pom.xml" />
         <option value="$PROJECT_DIR$/dubbo-test/pom.xml" />
         <option value="$PROJECT_DIR$/return/pom.xml" />
+        <option value="$PROJECT_DIR$/system-search/pom.xml" />
       </set>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

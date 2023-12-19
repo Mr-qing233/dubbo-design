@@ -10,6 +10,7 @@ public enum ResultEnum implements BaseErrorInfo{
     UPDATEERROR("2001","更新业务错误"),
     SAVEERROR("2002","数据新增业务错误"),
     DELETEERROR("2003","数据删除业务错误"),
+    SEARCHERROR("2004","数据搜索业务错误"),
     ;
 
     private String code;
