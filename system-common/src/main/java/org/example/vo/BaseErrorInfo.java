@@ -1,7 +1,7 @@
 package org.example.vo;
 
 /**
- *  接口美剧返回码
+ *  接口返回码
  */
 public interface BaseErrorInfo {
     /**

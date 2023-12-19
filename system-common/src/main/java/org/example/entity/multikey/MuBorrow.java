@@ -14,6 +14,12 @@ import java.io.Serializable;
 public class MuBorrow implements Serializable {
     @Serial
     private static final long serialVersionUID = -1570834456846579284L;
+    /**
+     * 书籍id
+     */
     private String bid;
+    /**
+     * 用户id
+     */
     private String uid;
 }

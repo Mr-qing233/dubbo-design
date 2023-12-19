@@ -29,10 +29,14 @@ import java.net.BindException;
 @Slf4j
 @RestControllerAdvice(value = "org.example.controller")
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
+    /**
+     * 注入ObjectMapper
+     */
     @Autowired
     private ObjectMapper objectMapper;
     /**
      * 直接返回true,对所有handler的responseBody都调用beforeBodyWrite方法
+     *
      * @param returnType 返回类型
      * @param converterType 输入类型
      * @return true
@@ -44,6 +48,7 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
     /**
      * 统一包装
+     *
      * @param body 切片数据
      * @param returnType 返回类型
      * @param selectedContentType 选择内容类型
@@ -78,8 +83,8 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
      * 系统内部异常捕获
      *
      * @param exception 服务异常
+     * @param <T>  serviceException
      * @return ResultJson.Error
-     * @param <T> serviceException
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
@@ -96,8 +101,8 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
      * 出发例子:带有@RequestParam注解的参数未传入形参
      *
      * @param missingServletRequestParameterException 错误
+     * @param <T>  ResultEnum.SERVLETREQUESTPARAMETER
      * @return ResultJson.Error
-     * @param <T> ResultEnum.SERVLETREQUESTPARAMETER
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MissingServletRequestParameterException.class)

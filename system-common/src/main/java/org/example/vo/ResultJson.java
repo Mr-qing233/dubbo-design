@@ -11,8 +11,17 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResultJson<T> implements Serializable {
+    /**
+     * 状态码
+     */
     private String code;
+    /**
+     * 状态信息
+     */
     private String msg;
+    /**
+     * 包含数据
+     */
     private T data;
 
     public static <T> ResultJson<T> Success(){
