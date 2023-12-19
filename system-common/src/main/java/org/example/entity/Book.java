@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 书籍实体类
  */
@@ -18,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "db_book")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "fieldHandler"})
-public class Book {
+public class Book implements Serializable {
     // 书籍id
     @Id
     private String bid;

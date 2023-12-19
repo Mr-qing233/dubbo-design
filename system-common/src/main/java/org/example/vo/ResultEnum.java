@@ -11,6 +11,7 @@ public enum ResultEnum implements BaseErrorInfo{
     SAVEERROR("2002","数据新增业务错误"),
     DELETEERROR("2003","数据删除业务错误"),
     SEARCHERROR("2004","数据搜索业务错误"),
+    SEARCHNOTFOUND("2005","没有搜索到结果")
     ;
 
     private String code;

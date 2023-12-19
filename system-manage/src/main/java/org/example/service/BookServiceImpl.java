@@ -22,7 +22,7 @@ public class BookServiceImpl implements BookService{
     public Book searchBookById(String bid) {
         Book bookByBid = bookRepository.findBookByBid(bid);
         if (bookByBid == null){
-            throw new ServiceException(ResultEnum.SEARCHERROR);
+            throw new ServiceException(ResultEnum.SEARCHNOTFOUND);
         }
         return bookByBid;
     }

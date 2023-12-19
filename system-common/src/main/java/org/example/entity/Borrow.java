@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.entity.multikey.MuBorrow;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -20,7 +21,7 @@ import java.util.Date;
 @IdClass(MuBorrow.class)
 @Table(name = "db_borrow")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "fieldHandler"})
-public class Borrow {
+public class Borrow implements Serializable {
     // 书籍id
     @Id
     private String bid;

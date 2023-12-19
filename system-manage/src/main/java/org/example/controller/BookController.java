@@ -15,7 +15,7 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/findBookById")
-    public Book testState(@RequestParam("bid") String bid){
+    public Book findBookById(@RequestParam("bid") String bid){
         return bookService.searchBookById(bid);
     }
 }
