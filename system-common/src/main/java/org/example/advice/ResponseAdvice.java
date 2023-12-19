@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.common.lang.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.example.exception.ServiceException;
 import org.example.vo.ResultEnum;
 import org.example.vo.ResultJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +84,10 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
     public <T> ResultJson<T> serviceExceptionHandler(Exception exception){
-        log.error("系统内部异常:",exception);
+        log.error("系统内部异常");
+        if (exception instanceof ServiceException){
+            return ResultJson.Error((ServiceException)exception);
+        }
         return ResultJson.Error(ResultEnum.ERROR);
     }
 
