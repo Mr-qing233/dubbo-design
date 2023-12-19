@@ -8,8 +8,7 @@ import org.example.vo.ResultEnum;
 public class TestServiceImpl implements TestService{
     /**
      * 测试自定义全局异常
-     * @param state
-     * @return
+     * @return String
      */
     @Override
     public String testException(String state) {

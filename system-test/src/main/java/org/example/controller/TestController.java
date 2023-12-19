@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.example.service.TestService;
+import org.example.vo.ResultJson;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,5 +17,14 @@ public class TestController {
     @GetMapping("/state")
     public String testState(@RequestParam("state") String state){
         return testService.testException(state);
+    }
+
+    @GetMapping("/return/string")
+    public String testStringAdvice(){
+        return "hello";
+    }
+    @GetMapping("/return/result")
+    public ResultJson<String> testResultAdvice(){
+        return ResultJson.Success("this is result in advice");
     }
 }
