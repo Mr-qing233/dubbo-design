@@ -8,6 +8,8 @@ import org.example.repository.BookRepository;
 import org.example.vo.ResultEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @DubboService
 public class BookServiceImpl implements BookService{
 
@@ -25,5 +27,19 @@ public class BookServiceImpl implements BookService{
             throw new ServiceException(ResultEnum.SEARCHNOTFOUND);
         }
         return bookByBid;
+    }
+
+    /**
+     * 根据内容搜索全部字段
+     * @param contain 搜索内容
+     * @return List<Book>
+     */
+    @Override
+    public List<Book> searchBooksByAllColumn(String contain) {
+        List<Book> bookList = bookRepository.findByAllColumn(contain);
+        if (bookList == null){
+            throw new ServiceException(ResultEnum.SEARCHNOTFOUND);
+        }
+        return bookList;
     }
 }

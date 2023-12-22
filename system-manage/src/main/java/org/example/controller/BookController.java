@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/book")
 public class BookController {
@@ -21,5 +23,10 @@ public class BookController {
     @GetMapping("/findBookById")
     public Book findBookById(@RequestParam("bid") String bid){
         return bookService.searchBookById(bid);
+    }
+
+    @GetMapping("/findAllColumn")
+    public List<Book> findBooksByAllColumn(@RequestParam("contain") String contain){
+        return bookService.searchBooksByAllColumn(contain);
     }
 }

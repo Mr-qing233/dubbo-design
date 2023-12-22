@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/borrow")
 public class BorrowController {
@@ -21,8 +23,26 @@ public class BorrowController {
      * @param uid 用户id
      */
     @GetMapping("/findBorrowRecord")
-    public Borrow findBorrowRecord(@RequestParam("bid") String bid,
-                                   @RequestParam("uid") String uid){
+    public List<Borrow> findBorrowRecord(@RequestParam("bid") String bid,
+                                         @RequestParam("uid") String uid){
         return borrowService.searchBookByBidAndUid(bid, uid);
+    }
+
+    /**
+     * 根据bid搜索特定记录
+     * @param bid 书籍id
+     */
+    @GetMapping("/findBorrowRecord/bid")
+    public List<Borrow> findBorrowRecordByBid(@RequestParam("bid") String bid){
+        return borrowService.searchBookByBid(bid);
+    }
+
+    /**
+     * 根据uid搜索特定记录
+     * @param uid 用户id
+     */
+    @GetMapping("/findBorrowRecord/uid")
+    public List<Borrow> findBorrowRecordByUid(@RequestParam("uid") String uid){
+        return borrowService.searchBookByUid(uid);
     }
 }
