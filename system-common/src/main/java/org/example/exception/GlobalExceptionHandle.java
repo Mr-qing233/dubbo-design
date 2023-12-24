@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 /**
  * 全局异常拦截
  */
-@RestControllerAdvice
+@Deprecated
+// @RestControllerAdvice
 public class GlobalExceptionHandle {
     /**
      * 如果抛出的是ServiceException则抛出该方法

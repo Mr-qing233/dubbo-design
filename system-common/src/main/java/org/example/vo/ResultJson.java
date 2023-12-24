@@ -40,6 +40,9 @@ public class ResultJson<T> implements Serializable {
     public static <T> ResultJson<T> Error(ServiceException serviceException){
         return new ResultJson<>(serviceException.getCode(),serviceException.getMessage(),null);
     }
+    public static <T> ResultJson<T> Error(String exceptionMsg){
+        return new ResultJson<>("500",exceptionMsg,null);
+    }
     public static <T> ResultJson<T> Error(Exception exception){
         return new ResultJson<>("500",exception.getMessage(),null);
     }

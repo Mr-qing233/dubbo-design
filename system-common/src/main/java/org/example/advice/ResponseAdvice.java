@@ -7,8 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.exception.ServiceException;
 import org.example.vo.ResultEnum;
 import org.example.vo.ResultJson;
+import org.hibernate.JDBCException;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.hibernate.exception.spi.SQLExceptionConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -22,6 +26,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.net.BindException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  * 切面统一封装
@@ -89,10 +95,10 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
     public <T> ResultJson<T> serviceExceptionHandler(Exception exception){
-        log.error("系统内部异常");
         if (exception instanceof ServiceException){
             return ResultJson.Error((ServiceException)exception);
         }
+        log.error("系统内部异常");
         return ResultJson.Error(ResultEnum.ERROR);
     }
 
