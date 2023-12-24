@@ -3,19 +3,24 @@ package org.example.service;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.example.entity.Borrow;
 import org.example.exception.ServiceException;
+import org.example.repository.BookRepository;
 import org.example.repository.BorrowRepository;
 import org.example.vo.ResultEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @DubboService
 public class BorrowServiceImpl implements BorrowService{
-    /**
-     *
-     */
     @Autowired
     private BorrowRepository borrowRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
     /**
      * 根据Bid与Uid搜索借阅记录
@@ -59,5 +64,79 @@ public class BorrowServiceImpl implements BorrowService{
             throw new ServiceException(ResultEnum.SEARCHNOTFOUND);
         }
         return borrow;
+    }
+
+    /**
+     * 检索未归还书籍
+     * 若没有未归还应该为true
+     * @param bid 书籍id
+     * @param uid 用户id
+     * @return Borrow
+     */
+    @Override
+    public boolean searchNotReturnedBook(String bid, String uid) {
+        Borrow state = borrowRepository.findBorrowByBidAndUidAndState(bid, uid, 0);
+        return state == null;
+    }
+
+    /**
+     * 添加借阅记录
+     *
+     * @param borrow Borrow
+     * @return boolean
+     */
+    @Override
+    @Transactional
+    public boolean addRecord(Borrow borrow) {
+        // 检查实体完整性
+        if((borrow.getBid() == null) && (borrow.getUid() == null)){
+            throw new ServiceException(ResultEnum.MISSINGPARAMS);
+        }
+        // 检查属性值
+        if(borrow.getState() != 0){
+            throw new ServiceException(ResultEnum.PARAMSDOMAINERROR);
+        }
+        // 检查是否有未归还的相同书籍
+        if (!searchNotReturnedBook(borrow.getBid(),borrow.getUid())){
+            throw new ServiceException(ResultEnum.HAVENOTRETURNED);
+        }
+        // 增加借阅信息
+        // 补完时间信息
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        borrow.setBDate(format.format(new Date()));
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE,30);
+        borrow.setRDate(format.format(cal.getTime()));
+        // 减少库存
+        if(bookRepository.decreaseStock(borrow.getBid(),1).equals(0)){
+            throw new ServiceException(ResultEnum.DECREASEFAILED);
+        }
+        // 新增借阅
+        if (borrowRepository.addNewRecord(borrow).equals(0)){
+            throw new ServiceException(ResultEnum.BORROWFAILED);
+        }
+        // 返回bool值
+        return true;
+    }
+
+    /**
+     * 还书
+     * @param uid 用户id
+     * @param bid 书籍id
+     * @return boolean
+     */
+    @Override
+    @Transactional
+    public boolean returnRecord(String uid, String bid) {
+        // 修改借阅状态
+        if (borrowRepository.alterRecordState(uid,bid).equals(0)){
+            throw new ServiceException(ResultEnum.RETURNFAILED);
+        }
+        // 增加库存
+        if(bookRepository.increaseStock(bid,1).equals(0)){
+            throw new ServiceException(ResultEnum.INCREASEFAILED);
+        }
+        // 返回bool值
+        return true;
     }
 }

@@ -10,7 +10,7 @@ public interface BorrowService {
      * @param bid 书籍id
      * @param uid 用户id
      */
-    List<Borrow>  searchBookByBidAndUid(String bid, String uid);
+    List<Borrow> searchBookByBidAndUid(String bid, String uid);
     /**
      * 根据bid搜索特定记录
      * @param bid 书籍id
@@ -21,4 +21,26 @@ public interface BorrowService {
      * @param uid 用户id
      */
     List<Borrow> searchBookByUid(String uid);
+
+    /**
+     * 检索未归还书籍
+     * @param bid 书籍id
+     * @param uid 用户id
+     */
+    boolean searchNotReturnedBook(String bid, String uid);
+
+    /**
+     * 新增借阅记录
+     * @param borrow 书籍实体
+     * @return boolean
+     */
+    boolean addRecord(Borrow borrow);
+
+    /**
+     * 还书
+     * @param uid 用户id
+     * @param bid 书籍id
+     * @return boolean
+     */
+    boolean returnRecord(String uid,String bid);
 }

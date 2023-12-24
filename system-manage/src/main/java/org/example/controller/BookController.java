@@ -3,10 +3,7 @@ package org.example.controller;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.example.entity.Book;
 import org.example.service.BookService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +25,15 @@ public class BookController {
     @GetMapping("/findAllColumn")
     public List<Book> findBooksByAllColumn(@RequestParam("contain") String contain){
         return bookService.searchBooksByAllColumn(contain);
+    }
+
+    @PostMapping("/decrease")
+    public boolean decreaseStockBook(@RequestParam("bid") String bid,@RequestParam("num") Integer num){
+        return bookService.decreaseStockBook(bid,num);
+    }
+
+    @PostMapping("/increase")
+    public boolean increaseStockBook(@RequestParam("bid") String bid,@RequestParam("num") Integer num){
+        return bookService.increaseStockBook(bid,num);
     }
 }

@@ -42,4 +42,32 @@ public class BookServiceImpl implements BookService{
         }
         return bookList;
     }
+
+    /**
+     * 减少库存
+     * @param bid    书籍id
+     * @param number 减少量
+     * @return boolean
+     */
+    @Override
+    public boolean decreaseStockBook(String bid, Integer number) {
+        if(bookRepository.decreaseStock(bid,number)==0){
+            throw new ServiceException(ResultEnum.DECREASEFAILED);
+        }
+        return true;
+    }
+
+    /**
+     * 增加库存
+     * @param bid    书籍id
+     * @param number 增量
+     * @return boolean
+     */
+    @Override
+    public boolean increaseStockBook(String bid, Integer number) {
+        if(bookRepository.increaseStock(bid,number)==0){
+            throw new ServiceException(ResultEnum.INCREASEFAILED);
+        }
+        return true;
+    }
 }

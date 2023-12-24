@@ -19,4 +19,20 @@ public interface BookService {
      * @return List<Book>
      */
     List<Book> searchBooksByAllColumn(String contain);
+
+    /**
+     * 减少库存书籍
+     * @param bid 书籍id
+     * @param number 减少量
+     * @return boolean
+     */
+    boolean decreaseStockBook(String bid,Integer number);
+
+    /**
+     * 增加库存书籍
+     * @param bid 书籍id
+     * @param number 增量
+     * @return boolean
+     */
+    boolean increaseStockBook(String bid,Integer number);
 }

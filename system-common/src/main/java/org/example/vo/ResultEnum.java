@@ -11,7 +11,14 @@ public enum ResultEnum implements BaseErrorInfo{
     SAVEERROR("2002","数据新增业务错误"),
     DELETEERROR("2003","数据删除业务错误"),
     SEARCHERROR("2004","数据搜索业务错误"),
-    SEARCHNOTFOUND("2005","没有搜索到结果")
+    SEARCHNOTFOUND("2005","没有搜索到结果"),
+    MISSINGPARAMS("2006","缺少必要参数"),
+    PARAMSDOMAINERROR("2007","参数不符合条件"),
+    HAVENOTRETURNED("2008","有书籍未归还"),
+    BORROWFAILED("2009","借阅失败"),
+    DECREASEFAILED("2010","减少书籍失败"),
+    INCREASEFAILED("2011","增加书籍失败"),
+    RETURNFAILED("2012","归还书籍失败"),
     ;
 
     private String code;

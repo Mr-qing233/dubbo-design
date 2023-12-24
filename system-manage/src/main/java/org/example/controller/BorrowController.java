@@ -1,13 +1,11 @@
 package org.example.controller;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.example.entity.Borrow;
 import org.example.service.BorrowService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,5 +42,15 @@ public class BorrowController {
     @GetMapping("/findBorrowRecord/uid")
     public List<Borrow> findBorrowRecordByUid(@RequestParam("uid") String uid){
         return borrowService.searchBookByUid(uid);
+    }
+
+    @PostMapping("/saveRecord")
+    public boolean saveRecord(@RequestBody Borrow borrow){
+        return borrowService.addRecord(borrow);
+    }
+
+    @PostMapping("/return")
+    public boolean returnRecord(@RequestParam("uid") String uid,@RequestParam("bid") String bid){
+        return borrowService.returnRecord(uid, bid);
     }
 }
