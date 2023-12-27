@@ -22,6 +22,7 @@ public class BorrowVo implements Serializable {
     @Id
     private Integer borrowId;
     private String bname;
+    @JsonIgnore
     private String uname;
     // 借阅时间
     @Column(name = "b_date")
