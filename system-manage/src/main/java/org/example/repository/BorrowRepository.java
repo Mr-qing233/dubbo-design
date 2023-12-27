@@ -48,6 +48,6 @@ public interface BorrowRepository extends JpaRepository<Borrow, Integer> {
      */
     @Transactional
     @Modifying
-    @Query(value = "UPDATE `db_borrow` SET state=1 WHERE borrow_id=:borrowId AND state=0",nativeQuery = true)
-    Integer alterRecordState(@Param("borrowId") Integer uid);
+    @Query(value = "UPDATE `db_borrow` SET state=1,r_date=:rDate WHERE borrow_id=:borrowId AND state=0",nativeQuery = true)
+    Integer alterRecordState(@Param("borrowId") Integer uid,@Param("rDate") String rDate);
 }

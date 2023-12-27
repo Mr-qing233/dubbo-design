@@ -142,8 +142,9 @@ public class BorrowServiceImpl implements BorrowService{
     @Override
     @Transactional
     public boolean returnRecord(Integer borrowId) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         // 修改借阅状态
-        if (borrowRepository.alterRecordState(borrowId).equals(0)){
+        if (borrowRepository.alterRecordState(borrowId,format.format(new Date())).equals(0)){
             throw new ServiceException(ResultEnum.RETURNFAILED);
         }
         HashMap<String, String> hashMap = searchIdsByBorrowId(borrowId);
