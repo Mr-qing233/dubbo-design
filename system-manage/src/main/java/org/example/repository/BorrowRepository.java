@@ -40,7 +40,7 @@ public interface BorrowRepository extends JpaRepository<Borrow, Integer> {
      */
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO `db_borrow` (bid,uid,b_date,r_date,state) VALUES (:#{#borrow.bid},:#{#borrow.uid},:#{#borrow.bDate},:#{#borrow.rDate},:#{#borrow.state})",nativeQuery = true)
+    @Query(value = "INSERT INTO `db_borrow` (bid,uid,b_date,r_date,state) VALUES (:#{#borrow.bid},:#{#borrow.uid},:#{#borrow.borrowDate},:#{#borrow.returnDate},:#{#borrow.state})",nativeQuery = true)
     Integer addNewRecord(@Param("borrow") Borrow borrow);
 
     /**

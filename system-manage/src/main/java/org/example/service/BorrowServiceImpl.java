@@ -118,10 +118,10 @@ public class BorrowServiceImpl implements BorrowService{
         // 增加借阅信息
         // 补完时间信息
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        borrow.setBDate(format.format(new Date()));
+        borrow.setBorrowDate(format.format(new Date()));
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE,30);
-        borrow.setRDate(format.format(cal.getTime()));
+        borrow.setReturnDate(format.format(cal.getTime()));
         // 减少库存
         if(bookRepository.decreaseStock(borrow.getBid(),1).equals(0)){
             throw new ServiceException(ResultEnum.DECREASEFAILED);

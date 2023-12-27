@@ -26,10 +26,10 @@ public class BorrowVo implements Serializable {
     private String uname;
     // 借阅时间
     @Column(name = "b_date")
-    private String bDate;
+    private String borrowDate;
     // 归还时间
     @Column(name = "r_date")
-    private String rDate;
+    private String returnDate;
     // 借阅状态:[0-未归还][1-已归还]
     private Integer state;
 }
