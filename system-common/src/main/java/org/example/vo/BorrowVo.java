@@ -24,11 +24,9 @@ public class BorrowVo implements Serializable {
     private String bname;
     private String uname;
     // 借阅时间
-    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "b_date")
     private String bDate;
     // 归还时间
-    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "r_date")
     private String rDate;
     // 借阅状态:[0-未归还][1-已归还]
