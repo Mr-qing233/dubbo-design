@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface BorrowRepository extends JpaRepository<Borrow, Integer> {
     /**
@@ -28,6 +30,10 @@ public interface BorrowRepository extends JpaRepository<Borrow, Integer> {
      */
     Borrow findBorrowByBidAndUidAndState(String bid, String uid,Integer state);
 
+    /**
+     * 检索对应bid与uid
+     */
+    Borrow findBorrowByBorrowId(Integer borrowId);
 
     /**
      * 新增借阅记录
@@ -42,6 +48,6 @@ public interface BorrowRepository extends JpaRepository<Borrow, Integer> {
      */
     @Transactional
     @Modifying
-    @Query(value = "UPDATE `db_borrow` SET state=1 WHERE uid=:uid AND bid=:bid AND state=0",nativeQuery = true)
-    Integer alterRecordState(@Param("uid") String uid, @Param("bid") String bid);
+    @Query(value = "UPDATE `db_borrow` SET state=1 WHERE borrow_id=:borrowId AND state=0",nativeQuery = true)
+    Integer alterRecordState(@Param("borrowId") Integer uid);
 }

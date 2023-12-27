@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @DubboService
 public class BorrowServiceImpl implements BorrowService{
@@ -80,6 +78,23 @@ public class BorrowServiceImpl implements BorrowService{
     }
 
     /**
+     * @param borrowId 借阅id
+     * @return Borrow
+     */
+    @Override
+    public HashMap<String,String > searchIdsByBorrowId(Integer borrowId) {
+        Borrow borrow = borrowRepository.findBorrowByBorrowId(borrowId);
+        if (borrow == null){
+            throw new ServiceException(ResultEnum.SEARCHNOTFOUND);
+        }
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("uid",borrow.getUid());
+        hashMap.put("bid",borrow.getBid());
+        return hashMap;
+    }
+
+
+    /**
      * 添加借阅记录
      *
      * @param borrow Borrow
@@ -121,19 +136,19 @@ public class BorrowServiceImpl implements BorrowService{
 
     /**
      * 还书
-     * @param uid 用户id
-     * @param bid 书籍id
+     * @param borrowId 借阅
      * @return boolean
      */
     @Override
     @Transactional
-    public boolean returnRecord(String uid, String bid) {
+    public boolean returnRecord(Integer borrowId) {
         // 修改借阅状态
-        if (borrowRepository.alterRecordState(uid,bid).equals(0)){
+        if (borrowRepository.alterRecordState(borrowId).equals(0)){
             throw new ServiceException(ResultEnum.RETURNFAILED);
         }
+        HashMap<String, String> hashMap = searchIdsByBorrowId(borrowId);
         // 增加库存
-        if(bookRepository.increaseStock(bid,1).equals(0)){
+        if(bookRepository.increaseStock(hashMap.get("bid"),1).equals(0)){
             throw new ServiceException(ResultEnum.INCREASEFAILED);
         }
         // 返回bool值

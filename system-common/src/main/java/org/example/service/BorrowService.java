@@ -2,7 +2,9 @@ package org.example.service;
 
 import org.example.entity.Borrow;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface BorrowService {
     /**
@@ -30,6 +32,13 @@ public interface BorrowService {
     boolean searchNotReturnedBook(String bid, String uid);
 
     /**
+     * 检索对应bid与uid
+     * @param borrowId 借阅id
+     * @return Map
+     */
+    HashMap<String,String > searchIdsByBorrowId(Integer borrowId);
+
+    /**
      * 新增借阅记录
      * @param borrow 书籍实体
      * @return boolean
@@ -38,9 +47,8 @@ public interface BorrowService {
 
     /**
      * 还书
-     * @param uid 用户id
-     * @param bid 书籍id
+     * @param borrowId 借阅id
      * @return boolean
      */
-    boolean returnRecord(String uid,String bid);
+    boolean returnRecord(Integer borrowId);
 }

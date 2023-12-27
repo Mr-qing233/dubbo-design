@@ -7,7 +7,9 @@ import org.example.entity.Borrow;
 import org.example.service.BorrowService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/borrow")
@@ -43,6 +45,10 @@ public class BorrowController {
     public List<Borrow> findBorrowRecordByUid(@RequestParam("uid") String uid){
         return borrowService.searchBookByUid(uid);
     }
+    @GetMapping("/findIds/borrowId")
+    public HashMap<String,String > findIdsByBorrowId(@RequestParam("borrowId") Integer borrowId){
+        return borrowService.searchIdsByBorrowId(borrowId);
+    }
 
     @PostMapping("/saveRecord")
     public boolean saveRecord(@RequestBody Borrow borrow){
@@ -50,7 +56,7 @@ public class BorrowController {
     }
 
     @PostMapping("/return")
-    public boolean returnRecord(@RequestParam("uid") String uid,@RequestParam("bid") String bid){
-        return borrowService.returnRecord(uid, bid);
+    public boolean returnRecord(@RequestParam("borrowId") Integer borrowId){
+        return borrowService.returnRecord(borrowId);
     }
 }
