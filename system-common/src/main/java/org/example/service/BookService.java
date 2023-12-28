@@ -35,4 +35,11 @@ public interface BookService {
      * @return boolean
      */
     boolean increaseStockBook(String bid,Integer number);
+
+    /**
+     * 新增书籍
+     * @param book 书籍实体
+     * @return boolean
+     */
+    boolean addNewBook(Book book,String uid);
 }

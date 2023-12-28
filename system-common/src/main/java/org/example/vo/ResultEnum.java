@@ -18,7 +18,13 @@ public enum ResultEnum implements BaseErrorInfo{
     BORROWFAILED("2009","借阅失败"),
     DECREASEFAILED("2010","减少书籍失败"),
     INCREASEFAILED("2011","增加书籍失败"),
-    RETURNFAILED("2012","归还书籍失败"),
+    ALTERFAILED("2012","修改书籍数量失败"),
+    RETURNFAILED("2013","归还书籍失败"),
+    ADDSTORAGEFAILED("2014","新增库存记录失败"),
+    NEWBOOKFAILED("2015","新建书籍失败"),
+    BOOKHASEXISTED("2016","该书籍已存在"),
+    ALTERCANNOTZERO("2017","数量调整不能没变化"),
+    STOCKNOTENOUGH("2018","当前库存不足"),
     ;
 
     private String code;

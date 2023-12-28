@@ -7,6 +7,7 @@ import org.example.repository.BookRepository;
 
 import org.example.vo.ResultEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class BookServiceImpl implements BookService{
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private StorageService storageService;
 
     /**
      * 根据id搜索书籍数据
@@ -68,6 +72,29 @@ public class BookServiceImpl implements BookService{
         if(bookRepository.increaseStock(bid,number)==0){
             throw new ServiceException(ResultEnum.INCREASEFAILED);
         }
+        return true;
+    }
+
+    /**
+     * @param book 书籍实体
+     * @return boolean
+     */
+    @Override
+    @Transactional
+    public boolean addNewBook(Book book,String uid) {
+        // 检索是否已存在
+        if(bookRepository.judgeExist(book.getBName(),book.getAuthor())!=null){
+            throw new ServiceException(ResultEnum.BOOKHASEXISTED);
+        }
+        // 新增书籍
+        if (bookRepository.addNewBook(book)!=0){
+            Book bookAltered = bookRepository.judgeExist(book.getBName(), book.getAuthor());
+            // 修改storage记录
+            storageService.addStorage(uid,bookAltered.getBid(),bookAltered.getTotalQuantity());
+        }else {
+            throw new ServiceException(ResultEnum.NEWBOOKFAILED);
+        }
+
         return true;
     }
 }

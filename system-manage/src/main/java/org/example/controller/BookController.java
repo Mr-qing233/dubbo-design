@@ -36,4 +36,9 @@ public class BookController {
     public boolean increaseStockBook(@RequestParam("bid") String bid,@RequestParam("num") Integer num){
         return bookService.increaseStockBook(bid,num);
     }
+
+    @PostMapping("/newBook/{uid}")
+    public boolean newBook(@RequestBody Book book,@PathVariable("uid") String uid){
+        return bookService.addNewBook(book,uid);
+    }
 }
