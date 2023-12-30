@@ -14,6 +14,7 @@
         <module>system-register</module>
         <module>system-manage</module>
         <module>system-test</module>
+        <module>system-gateway</module>
     </modules>
 
     <properties>

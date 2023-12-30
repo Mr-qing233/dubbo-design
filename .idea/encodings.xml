@@ -11,6 +11,8 @@
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/system-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/system-gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system-login/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system-login/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system-manage/src/main/java" charset="UTF-8" />
@@ -19,6 +21,8 @@
     <file url="file://$PROJECT_DIR$/system-register/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system-search/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system-search/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/system-shenyu-client-demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/system-shenyu-client-demo/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system-test/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system-test/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
