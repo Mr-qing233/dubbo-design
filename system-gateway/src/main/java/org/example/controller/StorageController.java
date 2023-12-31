@@ -3,6 +3,7 @@ package org.example.controller;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.example.entity.Storage;
 import org.example.service.StorageService;
+import org.example.vo.ResultJson;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class StorageController {
      * @return boolean
      */
     @PostMapping("/addStorage")
-    public boolean addStorageRecord(@RequestParam("uid") String uid,@RequestParam("bid") String bid,@RequestParam("count") Integer count){
+    public ResultJson<Boolean> addStorageRecord(@RequestParam("uid") String uid, @RequestParam("bid") String bid, @RequestParam("count") Integer count){
         return storageService.addStorage(uid, bid, count);
     }
     /**
@@ -33,12 +34,12 @@ public class StorageController {
      * @return boolean
      */
     @PostMapping("/newStorage")
-    public boolean newStorageRecord(@RequestParam("uid") String uid,@RequestParam("bid") String bid,@RequestParam("count") Integer count){
+    public ResultJson<Boolean> newStorageRecord(@RequestParam("uid") String uid,@RequestParam("bid") String bid,@RequestParam("count") Integer count){
         return storageService.newStorage(uid, bid, count);
     }
 
     @GetMapping("/showAll")
-    public List<Storage> showAllRecord(){
+    public ResultJson<List<Storage>> showAllRecord(){
         return storageService.showAll();
     }
 }

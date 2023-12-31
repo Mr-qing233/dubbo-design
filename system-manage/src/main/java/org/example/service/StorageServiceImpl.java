@@ -6,6 +6,7 @@ import org.example.exception.ServiceException;
 import org.example.repository.BookRepository;
 import org.example.repository.StorageRepository;
 import org.example.vo.ResultEnum;
+import org.example.vo.ResultJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,12 +29,12 @@ public class StorageServiceImpl implements StorageService{
      * @return boolean
      */
     @Override
-    public boolean addStorage(String uid,String bid, Integer count) {
+    public ResultJson<Boolean> addStorage(String uid, String bid, Integer count) {
         Integer storage = storageRepository.addStorageRecord(uid,bid,count);
         if (storage == 0){
-            throw new ServiceException(ResultEnum.ADDSTORAGEFAILED);
+            return ResultJson.Error(ResultEnum.ADDSTORAGEFAILED);
         }
-        return true;
+        return ResultJson.Success(true);
     }
 
     /**
@@ -45,20 +46,20 @@ public class StorageServiceImpl implements StorageService{
      */
     @Transactional
     @Override
-    public boolean newStorage(String uid,String bid, Integer count) {
+    public ResultJson<Boolean> newStorage(String uid,String bid, Integer count) {
         if (count == 0){
-            throw new ServiceException(ResultEnum.ALTERCANNOTZERO);
+            return ResultJson.Error(ResultEnum.ALTERCANNOTZERO);
         }
         if ((count < 0) && (-count > bookRepository.findBookByBid(bid).getStockQuantity())){
-            throw new ServiceException(ResultEnum.STOCKNOTENOUGH);
+            return ResultJson.Error(ResultEnum.STOCKNOTENOUGH);
         }
         if (storageRepository.addStorageRecord(uid,bid,count) == 0){
-            throw new ServiceException(ResultEnum.ADDSTORAGEFAILED);
+            return ResultJson.Error(ResultEnum.ADDSTORAGEFAILED);
         }
         if (bookRepository.alterBookNumber(bid, count) == 0){
-            throw new ServiceException(ResultEnum.ALTERFAILED);
+            return ResultJson.Error(ResultEnum.ALTERFAILED);
         }
-        return true;
+        return ResultJson.Success(true);
     }
 
     /**
@@ -66,7 +67,7 @@ public class StorageServiceImpl implements StorageService{
      * @return List
      */
     @Override
-    public List<Storage> showAll() {
-        return storageRepository.findAll();
+    public ResultJson<List<Storage>> showAll() {
+        return ResultJson.Success(storageRepository.findAll());
     }
 }

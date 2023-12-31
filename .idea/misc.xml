@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/borrow/pom.xml" />
         <option value="$PROJECT_DIR$/dubbo-test/pom.xml" />
         <option value="$PROJECT_DIR$/return/pom.xml" />
+        <option value="$PROJECT_DIR$/system-login/pom.xml" />
         <option value="$PROJECT_DIR$/system-search/pom.xml" />
         <option value="$PROJECT_DIR$/system-shenyu-client-demo/pom.xml" />
       </set>
