@@ -6,6 +6,7 @@ import org.example.exception.ServiceException;
 import org.example.repository.BookRepository;
 import org.example.repository.BorrowRepository;
 import org.example.vo.ResultEnum;
+import org.example.vo.ResultJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,12 +29,12 @@ public class BorrowServiceImpl implements BorrowService{
      * @return List
      */
     @Override
-    public List<Borrow> searchBookByBidAndUid(String bid, String uid) {
+    public ResultJson<List<Borrow>> searchBookByBidAndUid(String bid, String uid) {
         List<Borrow> borrow = borrowRepository.findBorrowByBidAndUid(bid, uid);
         if (borrow == null){
-            throw new ServiceException(ResultEnum.SEARCHNOTFOUND);
+            return ResultJson.Error(ResultEnum.SEARCHNOTFOUND);
         }
-        return borrow;
+        return ResultJson.Success(borrow);
     }
 
     /**
@@ -42,12 +43,12 @@ public class BorrowServiceImpl implements BorrowService{
      * @param bid 书籍id
      */
     @Override
-    public List<Borrow> searchBookByBid(String bid) {
+    public ResultJson<List<Borrow>> searchBookByBid(String bid) {
         List<Borrow> borrow = borrowRepository.findBorrowByBid(bid);
         if (borrow == null){
-            throw new ServiceException(ResultEnum.SEARCHNOTFOUND);
+            return ResultJson.Error(ResultEnum.SEARCHNOTFOUND);
         }
-        return borrow;
+        return ResultJson.Success(borrow);
     }
 
     /**
@@ -56,12 +57,12 @@ public class BorrowServiceImpl implements BorrowService{
      * @param uid 用户id
      */
     @Override
-    public List<Borrow> searchBookByUid(String uid) {
+    public ResultJson<List<Borrow>> searchBookByUid(String uid) {
         List<Borrow> borrow = borrowRepository.findBorrowByUid(uid);
         if (borrow == null){
-            throw new ServiceException(ResultEnum.SEARCHNOTFOUND);
+            return ResultJson.Error(ResultEnum.SEARCHNOTFOUND);
         }
-        return borrow;
+        return ResultJson.Success(borrow);
     }
 
     /**
@@ -82,15 +83,15 @@ public class BorrowServiceImpl implements BorrowService{
      * @return Borrow
      */
     @Override
-    public HashMap<String,String > searchIdsByBorrowId(Integer borrowId) {
+    public ResultJson<HashMap<String,String>> searchIdsByBorrowId(Integer borrowId) {
         Borrow borrow = borrowRepository.findBorrowByBorrowId(borrowId);
         if (borrow == null){
-            throw new ServiceException(ResultEnum.SEARCHNOTFOUND);
+            return ResultJson.Error(ResultEnum.SEARCHNOTFOUND);
         }
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("uid",borrow.getUid());
         hashMap.put("bid",borrow.getBid());
-        return hashMap;
+        return ResultJson.Success(hashMap);
     }
 
 
@@ -102,7 +103,7 @@ public class BorrowServiceImpl implements BorrowService{
      */
     @Override
     @Transactional
-    public boolean addRecord(Borrow borrow) {
+    public ResultJson<Boolean> addRecord(Borrow borrow) {
         // 检查实体完整性
         if((borrow.getBid() == null) && (borrow.getUid() == null)){
             throw new ServiceException(ResultEnum.MISSINGPARAMS);
@@ -124,14 +125,14 @@ public class BorrowServiceImpl implements BorrowService{
         borrow.setReturnDate(format.format(cal.getTime()));
         // 减少库存
         if(bookRepository.decreaseStock(borrow.getBid(),1).equals(0)){
-            throw new ServiceException(ResultEnum.DECREASEFAILED);
+            ResultJson.Error(ResultEnum.DECREASEFAILED);
         }
         // 新增借阅
         if (borrowRepository.addNewRecord(borrow).equals(0)){
-            throw new ServiceException(ResultEnum.BORROWFAILED);
+            ResultJson.Error(ResultEnum.BORROWFAILED);
         }
         // 返回bool值
-        return true;
+        return ResultJson.Success(true);
     }
 
     /**
@@ -141,18 +142,18 @@ public class BorrowServiceImpl implements BorrowService{
      */
     @Override
     @Transactional
-    public boolean returnRecord(Integer borrowId) {
+    public ResultJson<Boolean> returnRecord(Integer borrowId) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         // 修改借阅状态
         if (borrowRepository.alterRecordState(borrowId,format.format(new Date())).equals(0)){
-            throw new ServiceException(ResultEnum.RETURNFAILED);
+            ResultJson.Error(ResultEnum.RETURNFAILED);
         }
-        HashMap<String, String> hashMap = searchIdsByBorrowId(borrowId);
+        HashMap<String, String> hashMap = searchIdsByBorrowId(borrowId).getData();
         // 增加库存
         if(bookRepository.increaseStock(hashMap.get("bid"),1).equals(0)){
-            throw new ServiceException(ResultEnum.INCREASEFAILED);
+            return ResultJson.Error(ResultEnum.INCREASEFAILED);
         }
         // 返回bool值
-        return true;
+        return ResultJson.Success(true);
     }
 }
