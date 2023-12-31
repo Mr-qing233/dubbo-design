@@ -25,6 +25,8 @@ public enum ResultEnum implements BaseErrorInfo{
     BOOKHASEXISTED("2016","该书籍已存在"),
     ALTERCANNOTZERO("2017","数量调整不能没变化"),
     STOCKNOTENOUGH("2018","当前库存不足"),
+    USERNAMEHASEXISTED("2019","用户名已存在"),
+    CREATEUSERFAILED("2020","新建用户失败")
     ;
 
     private String code;

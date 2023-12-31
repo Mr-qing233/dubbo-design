@@ -6,6 +6,7 @@ import org.example.exception.ServiceException;
 import org.example.repository.BookRepository;
 
 import org.example.vo.ResultEnum;
+import org.example.vo.ResultJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,12 +26,12 @@ public class BookServiceImpl implements BookService{
      * @return Book
      */
     @Override
-    public Book searchBookById(String bid) {
+    public ResultJson<Book> searchBookById(String bid) {
         Book bookByBid = bookRepository.findBookByBid(bid);
         if (bookByBid == null){
-            throw new ServiceException(ResultEnum.SEARCHNOTFOUND);
+            return ResultJson.Error(ResultEnum.SEARCHNOTFOUND);
         }
-        return bookByBid;
+        return ResultJson.Success(bookByBid);
     }
 
     /**
@@ -39,12 +40,12 @@ public class BookServiceImpl implements BookService{
      * @return List<Book>
      */
     @Override
-    public List<Book> searchBooksByAllColumn(String contain) {
+    public ResultJson<List<Book>> searchBooksByAllColumn(String contain) {
         List<Book> bookList = bookRepository.findByAllColumn(contain);
         if (bookList == null){
-            throw new ServiceException(ResultEnum.SEARCHNOTFOUND);
+            return ResultJson.Error(ResultEnum.SEARCHNOTFOUND);
         }
-        return bookList;
+        return ResultJson.Success(bookList);
     }
 
     /**
@@ -54,11 +55,11 @@ public class BookServiceImpl implements BookService{
      * @return boolean
      */
     @Override
-    public boolean decreaseStockBook(String bid, Integer number) {
+    public ResultJson<Boolean> decreaseStockBook(String bid, Integer number) {
         if(bookRepository.decreaseStock(bid,number)==0){
-            throw new ServiceException(ResultEnum.DECREASEFAILED);
+            return ResultJson.Error(ResultEnum.DECREASEFAILED);
         }
-        return true;
+        return ResultJson.Success(true);
     }
 
     /**
@@ -68,11 +69,11 @@ public class BookServiceImpl implements BookService{
      * @return boolean
      */
     @Override
-    public boolean increaseStockBook(String bid, Integer number) {
+    public ResultJson<Boolean> increaseStockBook(String bid, Integer number) {
         if(bookRepository.increaseStock(bid,number)==0){
-            throw new ServiceException(ResultEnum.INCREASEFAILED);
+            return ResultJson.Error(ResultEnum.INCREASEFAILED);
         }
-        return true;
+        return ResultJson.Success(true);
     }
 
     /**
@@ -81,10 +82,10 @@ public class BookServiceImpl implements BookService{
      */
     @Override
     @Transactional
-    public boolean addNewBook(Book book,String uid) {
+    public ResultJson<Boolean> addNewBook(Book book,String uid) {
         // 检索是否已存在
         if(bookRepository.judgeExist(book.getBName(),book.getAuthor())!=null){
-            throw new ServiceException(ResultEnum.BOOKHASEXISTED);
+            return ResultJson.Error(ResultEnum.BOOKHASEXISTED);
         }
         // 新增书籍
         if (bookRepository.addNewBook(book)!=0){
@@ -92,9 +93,9 @@ public class BookServiceImpl implements BookService{
             // 修改storage记录
             storageService.addStorage(uid,bookAltered.getBid(),bookAltered.getTotalQuantity());
         }else {
-            throw new ServiceException(ResultEnum.NEWBOOKFAILED);
+            return ResultJson.Error(ResultEnum.NEWBOOKFAILED);
         }
 
-        return true;
+        return ResultJson.Success(true);
     }
 }

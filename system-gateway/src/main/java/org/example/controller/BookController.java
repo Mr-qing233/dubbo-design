@@ -3,6 +3,7 @@ package org.example.controller;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.example.entity.Book;
 import org.example.service.BookService;
+import org.example.vo.ResultJson;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,27 +19,27 @@ public class BookController {
      * @param bid 书籍id
      */
     @GetMapping("/findBookById")
-    public Book findBookById(@RequestParam("bid") String bid){
+    public ResultJson<Book> findBookById(@RequestParam("bid") String bid){
         return bookService.searchBookById(bid);
     }
 
     @GetMapping("/findAllColumn")
-    public List<Book> findBooksByAllColumn(@RequestParam("contain") String contain){
+    public ResultJson<List<Book>> findBooksByAllColumn(@RequestParam("contain") String contain){
         return bookService.searchBooksByAllColumn(contain);
     }
 
     @PostMapping("/decrease")
-    public boolean decreaseStockBook(@RequestParam("bid") String bid,@RequestParam("num") Integer num){
+    public ResultJson<Boolean> decreaseStockBook(@RequestParam("bid") String bid,@RequestParam("num") Integer num){
         return bookService.decreaseStockBook(bid,num);
     }
 
     @PostMapping("/increase")
-    public boolean increaseStockBook(@RequestParam("bid") String bid,@RequestParam("num") Integer num){
+    public ResultJson<Boolean> increaseStockBook(@RequestParam("bid") String bid,@RequestParam("num") Integer num){
         return bookService.increaseStockBook(bid,num);
     }
 
     @PostMapping("/newBook/{uid}")
-    public boolean newBook(@RequestBody Book book,@PathVariable("uid") String uid){
+    public ResultJson<Boolean> newBook(@RequestBody Book book,@PathVariable("uid") String uid){
         return bookService.addNewBook(book,uid);
     }
 }
