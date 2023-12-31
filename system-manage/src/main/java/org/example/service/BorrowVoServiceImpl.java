@@ -3,6 +3,7 @@ package org.example.service;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.example.repository.BorrowVoQueryRepository;
 import org.example.vo.BorrowVo;
+import org.example.vo.ResultJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,8 @@ public class BorrowVoServiceImpl implements BorrowVoService{
      * @return List
      */
     @Override
-    public List<BorrowVo> findBorrowByUid(String uid) {
-        return borrowVoQueryRepository.searchBorrowVoByUid(uid);
+    public ResultJson<List<BorrowVo>> findBorrowByUid(String uid) {
+        return ResultJson.Success(borrowVoQueryRepository.searchBorrowVoByUid(uid));
     }
 
     /**
@@ -28,8 +29,8 @@ public class BorrowVoServiceImpl implements BorrowVoService{
      * @return List
      */
     @Override
-    public List<BorrowVo> findBorrowByBid(String bid) {
-        return borrowVoQueryRepository.searchBorrowVoByBid(bid);
+    public ResultJson<List<BorrowVo>> findBorrowByBid(String bid) {
+        return ResultJson.Success(borrowVoQueryRepository.searchBorrowVoByBid(bid));
     }
 
     /**
@@ -37,7 +38,7 @@ public class BorrowVoServiceImpl implements BorrowVoService{
      * @return List
      */
     @Override
-    public List<BorrowVo> findUserNotReturn(String uid) {
-        return borrowVoQueryRepository.searchUserNotReturn(uid);
+    public ResultJson<List<BorrowVo>> findUserNotReturn(String uid) {
+        return ResultJson.Success(borrowVoQueryRepository.searchUserNotReturn(uid));
     }
 }

@@ -5,6 +5,7 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.example.entity.Borrow;
 import org.example.service.BorrowService;
+import org.example.vo.ResultJson;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -23,8 +24,8 @@ public class BorrowController {
      * @param uid 用户id
      */
     @GetMapping("/findBorrowRecord")
-    public List<Borrow> findBorrowRecord(@RequestParam("bid") String bid,
-                                         @RequestParam("uid") String uid){
+    public ResultJson<List<Borrow>> findBorrowRecord(@RequestParam("bid") String bid,
+                                                    @RequestParam("uid") String uid){
         return borrowService.searchBookByBidAndUid(bid, uid);
     }
 
@@ -33,7 +34,7 @@ public class BorrowController {
      * @param bid 书籍id
      */
     @GetMapping("/findBorrowRecord/bid")
-    public List<Borrow> findBorrowRecordByBid(@RequestParam("bid") String bid){
+    public ResultJson<List<Borrow>> findBorrowRecordByBid(@RequestParam("bid") String bid){
         return borrowService.searchBookByBid(bid);
     }
 
@@ -42,21 +43,21 @@ public class BorrowController {
      * @param uid 用户id
      */
     @GetMapping("/findBorrowRecord/uid")
-    public List<Borrow> findBorrowRecordByUid(@RequestParam("uid") String uid){
+    public ResultJson<List<Borrow>> findBorrowRecordByUid(@RequestParam("uid") String uid){
         return borrowService.searchBookByUid(uid);
     }
     @GetMapping("/findIds/borrowId")
-    public HashMap<String,String > findIdsByBorrowId(@RequestParam("borrowId") Integer borrowId){
+    public ResultJson<HashMap<String,String>> findIdsByBorrowId(@RequestParam("borrowId") Integer borrowId){
         return borrowService.searchIdsByBorrowId(borrowId);
     }
 
     @PostMapping("/saveRecord")
-    public boolean saveRecord(@RequestBody Borrow borrow){
+    public ResultJson<Boolean> saveRecord(@RequestBody Borrow borrow){
         return borrowService.addRecord(borrow);
     }
 
     @PostMapping("/return")
-    public boolean returnRecord(@RequestParam("borrowId") Integer borrowId){
+    public ResultJson<Boolean> returnRecord(@RequestParam("borrowId") Integer borrowId){
         return borrowService.returnRecord(borrowId);
     }
 }

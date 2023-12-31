@@ -5,6 +5,7 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.example.entity.Borrow;
 import org.example.service.BorrowVoService;
 import org.example.vo.BorrowVo;
+import org.example.vo.ResultJson;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +24,7 @@ public class BorrowVoController {
      * @param bid 书籍id
      */
     @GetMapping("/bookRecord")
-    public List<BorrowVo> showBookRecord(@RequestParam("bid") String bid){
+    public ResultJson<List<BorrowVo>> showBookRecord(@RequestParam("bid") String bid){
         return borrowVoService.findBorrowByBid(bid);
     }
 
@@ -32,7 +33,7 @@ public class BorrowVoController {
      * @param uid 用户id
      */
     @GetMapping("/userRecord")
-    public List<BorrowVo> showUserRecord(@RequestParam("uid") String uid){
+    public ResultJson<List<BorrowVo>> showUserRecord(@RequestParam("uid") String uid){
         return borrowVoService.findBorrowByUid(uid);
     }
 
@@ -41,7 +42,7 @@ public class BorrowVoController {
      * @param uid 用户id
      */
     @GetMapping("/notReturn")
-    public List<BorrowVo> showNotReturnRecord(@RequestParam("uid") String uid){
+    public ResultJson<List<BorrowVo>> showNotReturnRecord(@RequestParam("uid") String uid){
         return borrowVoService.findUserNotReturn(uid);
     }
 }
