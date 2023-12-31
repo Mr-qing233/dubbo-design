@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableDubbo
-public class LoginApplication {
+public class UserApplication {
     public static void main(String[] args) {
-        SpringApplication.run(LoginApplication.class,args);
+        SpringApplication.run(UserApplication.class,args);
     }
 }
