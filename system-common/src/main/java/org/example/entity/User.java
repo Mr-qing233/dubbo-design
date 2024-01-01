@@ -2,6 +2,7 @@ package org.example.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -21,6 +22,7 @@ public class User implements Serializable {
     @Id
     private String uid;
     private String uname;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String password;
     private String birthday;
     private String phone;

@@ -18,4 +18,8 @@ public interface UserRepository extends JpaRepository<User,String > {
 
     // 校验用户名是否存在
     User findUserByUname(String uname);
+
+    // 校验密码
+    @Query(nativeQuery = true,value = "SELECT * FROM db_user WHERE uid=:uid AND `password` =:password")
+    User judgeUserPassword(@Param("uid") String uid, @Param("password") String password);
 }
