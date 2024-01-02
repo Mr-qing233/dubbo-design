@@ -16,6 +16,7 @@
         <option value="$PROJECT_DIR$/system-login/pom.xml" />
         <option value="$PROJECT_DIR$/system-search/pom.xml" />
         <option value="$PROJECT_DIR$/system-shenyu-client-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/system-test/pom.xml" />
       </set>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

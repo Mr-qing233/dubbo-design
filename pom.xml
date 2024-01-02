@@ -12,7 +12,6 @@
         <module>system-common</module>
         <module>system-user</module>
         <module>system-manage</module>
-        <module>system-test</module>
         <module>system-gateway</module>
     </modules>
 
